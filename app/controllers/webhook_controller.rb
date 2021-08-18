@@ -44,7 +44,8 @@ class WebhookController < ApplicationController
         timestamp_datetime = Time.at(event['timestamp']/1000)
         User.create(user_id: event['source']['userId'], timestamp: timestamp_datetime)
 
-        puts User.all
+      when Line::Bot::Event::Unfollow
+        User.find_by(user_id: event['source']['userId']).destroy
       end
     }
     head :ok
