@@ -42,7 +42,6 @@ class WebhookController < ApplicationController
         exists_user_id = User.find_by(line_user_id: new_line_user_id)
         if exists_user_id then
           exists_user_id.update(is_blocked: false)
-          User.create(line_user_id: new_line_user_id, friend_registration_datetime: timestamp_datetime, is_blocked: false)
         else
           User.create(line_user_id: new_line_user_id, friend_registration_datetime: timestamp_datetime, is_blocked: false)
         end
