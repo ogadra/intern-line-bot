@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_060005) do
+ActiveRecord::Schema.define(version: 2021_08_18_023159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string "line_user_id"
-    t.datetime "friend_registration_datetime"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "line_user_id", null: false
+    t.datetime "friend_registration_datetime", null: false
   end
 
   create_table "widgets", force: :cascade do |t|
