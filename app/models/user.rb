@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-  validates :user_id, presence: true, uniqueness: true
-  validates :timestamp, presence: true
+  validates :line_user_id, presence: true, uniqueness: true
+  validates :friend_registration_datetime, presence: true
 end

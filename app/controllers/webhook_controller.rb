@@ -42,10 +42,11 @@ class WebhookController < ApplicationController
         }
         # client.reply_message(event['replyToken'], message)
         timestamp_datetime = Time.at(event['timestamp']/1000)
-        User.create(user_id: event['source']['userId'], timestamp: timestamp_datetime)
+        User.create(line_user_id: event['source']['userId'], friend_registration_datetime: timestamp_datetime)
 
       when Line::Bot::Event::Unfollow
-        User.find_by(user_id: event['source']['userId']).destroy
+        user = User.find_by(line_user_id: event['source']['userId'])
+        user.destroy!
       end
     }
     head :ok
