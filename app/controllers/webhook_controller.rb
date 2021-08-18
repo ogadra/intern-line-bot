@@ -34,6 +34,13 @@ class WebhookController < ApplicationController
           tf = Tempfile.open("content")
           tf.write(response.body)
         end
+
+      when Line::Bot::Event::Follow
+        message = {
+          type: 'text',
+          text: event['source']['userId']
+        }
+        client.reply_message(event['replyToken'], message)
       end
     }
     head :ok
