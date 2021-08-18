@@ -40,7 +40,7 @@ class WebhookController < ApplicationController
           type: 'text',
           text: event['source']['userId']
         }
-        client.reply_message(event['replyToken'], message)
+        # client.reply_message(event['replyToken'], message)
         timestamp_datetime = Time.at(event['timestamp']/1000)
         User.create(user_id: event['source']['userId'], timestamp: timestamp_datetime)
 
