@@ -34,6 +34,19 @@ class WebhookController < ApplicationController
           tf = Tempfile.open("content")
           tf.write(response.body)
         end
+
+      when Line::Bot::Event::Follow
+        timestamp_datetime = Time.at(event['timestamp']/1000)
+        User.create(line_user_id: event['source']['userId'], friend_registration_datetime: timestamp_datetime)
+
+        message = {
+          type: 'text',
+          text: '友達登録ありがとうございます！'
+        }
+        client.reply_message(event['replyToken'], message)
+      when Line::Bot::Event::Unfollow
+        user = User.find_by(line_user_id: event['source']['userId'])
+        user.destroy!
       end
     }
     head :ok
