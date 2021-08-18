@@ -36,14 +36,14 @@ class WebhookController < ApplicationController
         end
 
       when Line::Bot::Event::Follow
-        message = {
-          type: 'text',
-          text: event['source']['userId']
-        }
-        # client.reply_message(event['replyToken'], message)
         timestamp_datetime = Time.at(event['timestamp']/1000)
         User.create(line_user_id: event['source']['userId'], friend_registration_datetime: timestamp_datetime)
 
+        message = {
+          type: 'text',
+          text: '友達登録ありがとうございます！'
+        }
+        client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Unfollow
         user = User.find_by(line_user_id: event['source']['userId'])
         user.destroy!
