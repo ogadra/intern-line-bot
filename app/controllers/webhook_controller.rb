@@ -48,7 +48,7 @@ class WebhookController < ApplicationController
         client.reply_message(event['replyToken'], message)
 
       when Line::Bot::Event::Unfollow
-        User.new.archive(event['source']['userId'])
+        User.find_by(line_user_id: event['source']['userId']).archive
       end
     }
     head :ok
