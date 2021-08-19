@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_18_023159) do
+ActiveRecord::Schema.define(version: 2021_08_19_064555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "code", null: false
+    t.integer "brand_id", null: false
+    t.integer "item_id", null: false
+    t.string "url", null: false
+    t.string "status", default: "issued", null: false
+    t.integer "issued_at", null: false
+    t.integer "exchanged_at"
+    t.bigint "user_id", null: false
+    t.index ["code"], name: "index_tickets_on_code", unique: true
+    t.index ["url"], name: "index_tickets_on_url", unique: true
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "line_user_id", null: false
@@ -30,4 +44,5 @@ ActiveRecord::Schema.define(version: 2021_08_18_023159) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "tickets", "users"
 end

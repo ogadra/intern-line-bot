@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :tickets
+
   validates :line_user_id, presence: true, uniqueness: true
   validates :friend_registration_datetime, presence: true
 
