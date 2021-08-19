@@ -39,7 +39,7 @@ class WebhookController < ApplicationController
         timestamp_datetime = Time.at(event['timestamp']/1000)
         request_line_user_id = event['source']['userId']
 
-        User.new.register(request_line_user_id, timestamp_datetime)
+        User.register(request_line_user_id, timestamp_datetime)
 
         message = {
           type: 'text',
