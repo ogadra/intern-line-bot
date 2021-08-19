@@ -37,7 +37,13 @@ class WebhookController < ApplicationController
 
       when Line::Bot::Event::Follow
         timestamp_datetime = Time.at(event['timestamp']/1000)
-        User.create(line_user_id: event['source']['userId'], friend_registration_datetime: timestamp_datetime)
+
+        request_line_user_id = event['source']['userId']
+
+        existed_user = User.find_or_create_by(line_user_id: request_line_user_id) do |user|
+          user.friend_registration_datetime = timestamp_datetime
+        end
+        existed_user.update(is_blocked: false)
 
         message = {
           type: 'text',
@@ -45,8 +51,9 @@ class WebhookController < ApplicationController
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::Unfollow
+
         user = User.find_by(line_user_id: event['source']['userId'])
-        user.destroy!
+        user.update(is_blocked: true)
       end
     }
     head :ok
