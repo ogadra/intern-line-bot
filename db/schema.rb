@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_08_18_023159) do
   create_table "users", force: :cascade do |t|
     t.string "line_user_id", null: false
     t.datetime "friend_registration_datetime", null: false
-    t.boolean "is_blocked"
+    t.boolean "is_blocked", default: false, null: false
     t.index ["line_user_id"], name: "index_users_on_line_user_id", unique: true
   end
 
