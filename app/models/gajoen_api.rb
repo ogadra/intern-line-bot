@@ -15,7 +15,6 @@ class GajoenApi
     req['X-Giftee'] = 1
     req.set_form_data(query)
     res = http.request(req)
-    p res
     case res
     when Net::HTTPSuccess
       return JSON.parse(res.body)
