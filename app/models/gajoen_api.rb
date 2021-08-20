@@ -9,7 +9,7 @@ class GajoenApi
       :item_id => item_id,
       :request_code => request_code
     }
-    url = ENV['GAJOEN_URI']+ "/brands/#{brand_id}/tickets/"
+    url = ENV['GAJOEN_DOMAIN']+ "/brands/#{brand_id}/tickets/"
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
