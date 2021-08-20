@@ -1,7 +1,3 @@
-require 'net/https'
-require 'uri'
-require 'securerandom'
-
 class GajoenApi
   def self.create_tickets(brand_id, item_id)
     request_code = SecureRandom.urlsafe_base64(30)
