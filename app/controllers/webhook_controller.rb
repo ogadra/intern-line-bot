@@ -46,6 +46,12 @@ class WebhookController < ApplicationController
           text: '友達登録ありがとうございます！'
         }
         client.reply_message(event['replyToken'], message)
+        begin
+          res = GajoenApi.create_tickets(145,56509)
+          Ticket.add(res['code'], res['brand_id'], res['item_id'], res['url'], res['status'], res['issued_at'], res['exchanged_at'], request_line_user_id)
+        rescue
+          raise
+        end
 
       when Line::Bot::Event::Unfollow
         User.find_by(line_user_id: event['source']['userId']).archive
