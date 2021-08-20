@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :tickets
+  has_many :tickets, foreign_key: :line_user_id
+  self.primary_key = :line_user_id
 
   validates :line_user_id, presence: true, uniqueness: true
   validates :friend_registration_datetime, presence: true

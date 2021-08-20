@@ -23,7 +23,7 @@ class GajoenApi
     when Net::HTTPSuccess
       return JSON.parse(res.body)
     else
-      return nil
+      raise
     end
   end
 end

@@ -8,8 +8,8 @@ class CreateTickets < ActiveRecord::Migration[6.0]
       t.string :status, default: 'issued', null: false
       t.integer :issued_at, null: false
       t.integer :exchanged_at
-      t.references :user, null: false, foreign_key: true
-
+      t.string :line_user_id, null: false
     end
+    add_foreign_key :tickets, :users, column: :line_user_id, primary_key: "line_user_id"
   end
 end

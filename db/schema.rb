@@ -23,14 +23,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_064555) do
     t.string "status", default: "issued", null: false
     t.integer "issued_at", null: false
     t.integer "exchanged_at"
-    t.bigint "user_id", null: false
+    t.string "line_user_id", null: false
     t.index ["code"], name: "index_tickets_on_code", unique: true
     t.index ["url"], name: "index_tickets_on_url", unique: true
-    t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "line_user_id", null: false
+  create_table "users", primary_key: "line_user_id", id: :string, force: :cascade do |t|
     t.datetime "friend_registration_datetime", null: false
     t.boolean "is_blocked", default: false, null: false
     t.index ["line_user_id"], name: "index_users_on_line_user_id", unique: true
@@ -44,5 +42,5 @@ ActiveRecord::Schema.define(version: 2021_08_19_064555) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "tickets", "users"
+  add_foreign_key "tickets", "users", column: "line_user_id", primary_key: "line_user_id"
 end
