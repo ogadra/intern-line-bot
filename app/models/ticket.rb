@@ -6,7 +6,7 @@ class Ticket < ApplicationRecord
   validates :code, :brand_id, :item_id, :url, :status, :issued_at, :line_user_id, presence: true
 
   def self.add(code, brand_id, item_id, url, status, issued_at, exchanged_at, line_user_id)
-    Ticket.new(
+    self.create(
       code: code,
       brand_id: brand_id,
       item_id: item_id,
@@ -15,7 +15,7 @@ class Ticket < ApplicationRecord
       issued_at: issued_at,
       exchanged_at: exchanged_at,
       line_user_id: line_user_id
-    ).save!
+    )
 
   end
 end
