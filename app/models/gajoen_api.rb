@@ -6,8 +6,8 @@ class GajoenApi
   def self.create_tickets(brand_id, item_id)
     request_code = SecureRandom.urlsafe_base64(30)
     query={
-      'item_id'=>item_id,
-      'request_code'=>request_code
+      :item_id => item_id,
+      :request_code => request_code
     }
     url = ENV['GAJOEN_URI']+ "/brands/#{brand_id}/tickets/"
     uri = URI.parse(url)
@@ -19,6 +19,7 @@ class GajoenApi
     req['X-Giftee'] = 1
     req.set_form_data(query)
     res = http.request(req)
+    p res
     case res
     when Net::HTTPSuccess
       return JSON.parse(res.body)
